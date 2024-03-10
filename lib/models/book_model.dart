@@ -32,4 +32,16 @@ class BookModel {
       author: author,
     );
   }
+
+  factory BookModel.empty() {
+    return BookModel(
+      title: '',
+      pages: 0,
+      genre: '',
+      coverUrl: '',
+      synopsis: '',
+      year: 0,
+      author: AuthorModel.empty(),
+    );
+  }
 }

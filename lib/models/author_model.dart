@@ -16,4 +16,11 @@ class AuthorModel {
       otherBooks: books,
     );
   }
+
+  factory AuthorModel.empty() {
+    return AuthorModel(
+      name: '',
+      otherBooks: [],
+    );
+  }
 }
