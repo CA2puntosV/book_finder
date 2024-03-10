@@ -13,11 +13,16 @@ class HomeBloc extends ChangeNotifier {
   final BooksService _booksService = BooksService();
 
   List<BookModel> books = [];
+  List<BookModel> fiteredBooks = [];
+
   Set<BookModel> savedBooks = {};
+
   BookModel randomBook = BookModel.empty();
 
   bool isLoading = true;
   bool openedList = false;
+
+  String? query;
 
   void getBooks() async {
     books = await _booksService.getJsonBooks();
@@ -26,6 +31,22 @@ class HomeBloc extends ChangeNotifier {
       loading();
       getRandomBook();
     }
+  }
+
+  void searchBooks(String value) async {
+    if (value.isNotEmpty) {
+      fiteredBooks = books.where((book) {
+        return book.title.toLowerCase().contains(
+              value.toLowerCase(),
+            );
+      }).toList();
+      query = value;
+    } else {
+      fiteredBooks = [];
+      query = null;
+    }
+
+    notifyListeners();
   }
 
   void loading() {
@@ -62,4 +83,5 @@ class HomeBloc extends ChangeNotifier {
     openedList = !openedList;
     notifyListeners();
   }
+
 }

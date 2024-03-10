@@ -11,3 +11,15 @@ class BookData {
     this.isLoading,
   );
 }
+
+class BookList {
+  final List<BookModel> books;
+  final List<BookModel> filteredBook;
+  final String? query;
+
+  BookList(
+    this.books,
+    this.filteredBook,
+    this.query,
+  );
+}
