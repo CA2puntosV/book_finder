@@ -16,33 +16,32 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final double screenWidth = constraints.maxWidth;
-      final double screenHeight = constraints.maxHeight;
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        final double screenWidth = constraints.maxWidth;
 
-      final ScreenType screenType = _getScreenType(
-        width: screenWidth,
-        height: screenHeight,
-      );
+        final ScreenType screenType = _getScreenType(
+          width: screenWidth,
+        );
 
-      switch (screenType) {
-        case ScreenType.web:
-          return webLayout;
-        case ScreenType.tablet:
-          if (tabletLayout != null) {
-            return tabletLayout!;
-          } else {
+        switch (screenType) {
+          case ScreenType.web:
+            return webLayout;
+          case ScreenType.tablet:
+            if (tabletLayout != null) {
+              return tabletLayout!;
+            } else {
+              return mobileLayout;
+            }
+          case ScreenType.mobile:
             return mobileLayout;
-          }
-        case ScreenType.mobile:
-          return mobileLayout;
-      }
-    });
+        }
+      },
+    );
   }
 
   ScreenType _getScreenType({
     required double width,
-    required double height,
   }) {
     if (width > 900) {
       return ScreenType.web;
